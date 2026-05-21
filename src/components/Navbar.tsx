@@ -56,7 +56,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/8">
       <div className="max-w-6xl mx-auto px-10 h-16 flex items-center justify-between">
         <button onClick={() => goto("hero")} className="text-white font-bold text-lg tracking-widest">
-          NYJ.
+          나예진
         </button>
         <div className="hidden md:flex gap-10">
           {links.map(({ label, id }) => (
