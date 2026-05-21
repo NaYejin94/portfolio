@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* 콘텐츠 박스 — 어두운 유리 */
+.glass-dark {
+  background: rgba(6, 12, 38, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* 내부 카드 — 얇은 테두리만 */
+.card-inner {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* Hero 텍스트 그림자 */
+.text-shadow-hero {
+  text-shadow: 0 2px 40px rgba(0, 0, 60, 0.8), 0 1px 10px rgba(0, 0, 60, 0.5);
+}
+
+.section-title {
+  border-left: 4px solid #60a5fa;
+  padding-left: 14px;
+}
+
+/* ── 애니메이션 ── */
+@keyframes bgScale {
+  from { transform: scale(1.07); }
+  to   { transform: scale(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-bg-scale {
+  animation: bgScale 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.anim-up {
+  opacity: 0;
+  animation: fadeUp 0.7s ease both;
+}
+.anim-up.d1 { animation-delay: 0.1s; }
+.anim-up.d2 { animation-delay: 0.25s; }
+.anim-up.d3 { animation-delay: 0.4s; }
+.anim-up.d4 { animation-delay: 0.55s; }
+.anim-up.d5 { animation-delay: 0.72s; }
+
+/* 스크롤 진입 애니메이션 */
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.scroll-anim.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── PDF / 인쇄 ── */
+@media print {
+  /* 배경 이미지·색상 강제 출력 */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 스크롤 컨테이너 해제 */
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  #snap-main {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* 각 섹션 = 한 페이지 */
+  section {
+    page-break-after: always;
+    break-after: page;
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  /* 마지막 섹션은 페이지 구분선 불필요 */
+  section:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* 애니메이션 클래스 인쇄 시 강제 표시 */
+  .scroll-anim,
+  .anim-up {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* 네비게이션 숨김 */
+  nav,
+  aside,
+  [class*="fixed"] {
+    display: none !important;
+  }
 }

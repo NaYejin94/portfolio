@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"C:/Users/User/Downloads/vivid-blurred-colorful-wallpaper-background.jpg\" \"C:/wizplus_pj/portfolio/public/bg-hero.jpg\")",
+      "Bash(cp \"C:/Users/User/Downloads/vivid-blurred-colorful-wallpaper-background \\(1\\).jpg\" \"C:/wizplus_pj/portfolio/public/bg-section.jpg\")",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\wizplus_pj\\\\portfolio\\\\public\\\\screenshots\")",
+      "Bash(Out-Null)",
+      "Bash(Copy-Item \"C:\\\\Users\\\\User\\\\Downloads\\\\chrome-capture-2026-03-10.png\" \"C:\\\\wizplus_pj\\\\portfolio\\\\public\\\\screenshots\\\\aivis-1.png\")",
+      "Bash(Copy-Item \"C:\\\\Users\\\\User\\\\Downloads\\\\chrome-capture-2026-03-10 \\(4\\).png\" \"C:\\\\wizplus_pj\\\\portfolio\\\\public\\\\screenshots\\\\aivis-2.png\")",
+      "Bash(Copy-Item \"C:\\\\Users\\\\User\\\\Downloads\\\\chrome-capture-2026-03-09.png\" \"C:\\\\wizplus_pj\\\\portfolio\\\\public\\\\screenshots\\\\poolim-1.png\")",
+      "Bash(Copy-Item \"C:\\\\Users\\\\User\\\\Downloads\\\\chrome-capture-2026-03-09 \\(1\\).png\" \"C:\\\\wizplus_pj\\\\portfolio\\\\public\\\\screenshots\\\\poolim-2.png\")",
+      "WebSearch"
+    ]
+  }
+}
