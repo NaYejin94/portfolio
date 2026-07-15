@@ -40,9 +40,11 @@ function TypedText() {
       return () => clearTimeout(t);
     }
     if (isDeleting && displayed === "") {
-      setIsDeleting(false);
-      setPhraseIdx((i) => (i + 1) % PHRASES.length);
-      return;
+      const t = setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIdx((i) => (i + 1) % PHRASES.length);
+      }, 150);
+      return () => clearTimeout(t);
     }
 
     const speed = isDeleting ? 35 : 65;
