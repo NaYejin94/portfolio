@@ -45,6 +45,7 @@ export default function Contact() {
           backgroundPosition: "center",
         }}
       />
+      <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-[2]" />
 
       <div ref={ref} className="relative z-10 flex flex-col items-center gap-6">
         {/* 코드 아이콘 */}

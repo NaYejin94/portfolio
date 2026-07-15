@@ -122,6 +122,7 @@ export default function Hero() {
           backgroundPosition: "center",
         }}
       />
+      <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-[2]" />
 
       <div className="relative z-10 flex flex-col items-center gap-5 text-shadow-hero">
         <p className="anim-up d1 text-white/70 text-xs font-semibold tracking-[0.45em] uppercase">
