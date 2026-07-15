@@ -5,24 +5,6 @@ import Image from "next/image";
 import { Monitor, TrendingUp, Globe, ArrowLeft } from "lucide-react";
 import RevealTitle from "@/components/RevealTitle";
 
-const glass: React.CSSProperties = {
-  background: "rgba(255, 255, 255, 0.26)",
-  backdropFilter: "blur(48px) saturate(1.3)",
-  WebkitBackdropFilter: "blur(48px) saturate(1.3)",
-  border: "1px solid rgba(255, 255, 255, 0.40)",
-  boxShadow: "0 4px 24px rgba(0, 20, 80, 0.08), inset 0 1px 0 rgba(255,255,255,0.55)",
-};
-
-const badge: React.CSSProperties = {
-  background: "rgba(255, 255, 255, 0.38)",
-  border: "1px solid rgba(160, 180, 220, 0.40)",
-  color: "rgba(15, 45, 130, 0.90)",
-  padding: "3px 10px",
-  borderRadius: "999px",
-  fontSize: "0.70rem",
-  fontWeight: 600,
-};
-
 export type ProjectData = {
   id: string;
   sectionId: string;
@@ -45,27 +27,27 @@ const iconMap = {
 
 function Screenshots({ images }: { images: string[] }) {
   const frameStyle: React.CSSProperties = {
-    borderRadius: "12px",
+    borderRadius: "16px",
     overflow: "hidden",
-    boxShadow: "0 8px 32px rgba(0,20,80,0.18)",
-    border: "1px solid rgba(255,255,255,0.5)",
+    boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
+    border: "1px solid rgba(255,255,255,0.1)",
     position: "relative",
   };
 
   if (images.length === 1) {
     return (
       <div className="img-wipe" style={{ ...frameStyle, width: "100%", height: "100%", minHeight: 300 }}>
-        <Image src={images[0]} alt="screenshot" fill className="object-cover object-top" sizes="60vw" />
+        <Image src={images[0]} alt="screenshot" fill className="object-cover object-top" sizes="60vw" priority />
       </div>
     );
   }
 
   // 2 screenshots — 위아래 배치
   return (
-    <div className="flex flex-col gap-2 h-full">
+    <div className="flex flex-col gap-3 h-full">
       {images.map((src, i) => (
         <div key={i} className="img-wipe" style={{ ...frameStyle, flex: 1, minHeight: 0, position: "relative" }}>
-          <Image src={src} alt={`screenshot ${i + 1}`} fill className="object-cover object-top" sizes="60vw" />
+          <Image src={src} alt={`screenshot ${i + 1}`} fill className="object-cover object-top" sizes="60vw" priority />
         </div>
       ))}
     </div>
@@ -94,124 +76,130 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
   return (
     <section
       id={data.sectionId}
-      className="snap-start h-screen relative overflow-hidden flex flex-col justify-center px-6 md:px-16 py-12 md:py-14"
+      className="snap-start h-screen relative overflow-hidden flex flex-col px-6 md:px-16 pt-24 pb-16 md:pt-28 md:pb-20"
     >
+      {/* 백그라운드 레이어 및 가독성 100% 확보를 위한 딥 블랙 오버레이 */}
       <div
         className="absolute inset-0"
         style={{ backgroundImage: "url('/bg-section.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
+      <div className="absolute inset-0 bg-slate-950/92 backdrop-blur-[6px] z-[1]" />
 
-      <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full flex flex-col gap-4">
+      <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full h-full flex flex-col justify-between gap-6 min-h-0">
 
-        {/* 헤더 */}
-        <div className="flex items-center justify-between">
+        {/* 헤더 (고정 영역) */}
+        <div className="flex items-center justify-between shrink-0">
           <div>
-            <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-white/70 mb-1">
-              {String(index + 4).padStart(2, "0")} — Project
+            <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-blue-400 mb-1">
+              {String(index + 4).padStart(2, "0")} — Project Detail
             </p>
             <RevealTitle text={data.title} className="text-4xl font-bold text-white section-title" baseDelay={0.06} />
           </div>
           <div
-            className="scroll-anim flex items-center gap-2.5 px-4 py-2 rounded-full"
-            style={{ ...glass, transitionDelay: "0.10s" }}
+            className="scroll-anim flex items-center gap-2.5 px-4.5 py-2.5 rounded-full glass-dark border border-white/10"
+            style={{ transitionDelay: "0.10s" }}
           >
-            <Icon size={13} color="rgba(15,45,130,0.80)" />
-            <span className="text-xs font-medium" style={{ color: "rgba(15,45,130,0.80)" }}>{data.subtitle}</span>
-            <span className="text-xs ml-1" style={{ color: "rgba(15,45,130,0.50)" }}>{data.period}</span>
+            <span className="p-1 rounded bg-blue-500/10 text-blue-400">
+              <Icon size={14} />
+            </span>
+            <span className="text-sm font-medium text-slate-200">{data.subtitle}</span>
+            <span className="text-xs ml-1 text-slate-400">| {data.period}</span>
           </div>
         </div>
 
-        {/* 본문 */}
-        <div
-          className="grid grid-cols-5 gap-4"
-          style={{ height: "calc(100vh - 220px)", minHeight: 0 }}
-        >
+        {/* 본문 그리드 (남은 높이를 유연하게 채워 이미지/텍스트 축소 및 여백 보존) */}
+        <div className="grid grid-cols-5 gap-5 flex-1 min-h-0">
           {/* 스크린샷 왼쪽 — 작은 화면에서는 스크린샷 숨김 */}
-          <div className="scroll-anim media-reveal hidden md:block col-span-3 min-h-0" style={{ transitionDelay: "0.16s" }}>
+          <div className="scroll-anim media-reveal hidden md:block col-span-3 h-full min-h-0" style={{ transitionDelay: "0.16s" }}>
             <Screenshots images={data.images} />
           </div>
-          <div className="col-span-5 md:col-span-2 flex flex-col gap-3 min-h-0">
-            <MetaCard data={data} glass={glass} badge={badge} delay="0.22s" />
-            <FeaturesCard data={data} glass={glass} delay="0.30s" />
+          <div className="col-span-5 md:col-span-2 flex flex-col gap-4 h-full min-h-0">
+            <MetaCard data={data} delay="0.22s" />
+            <FeaturesCard data={data} delay="0.30s" />
           </div>
         </div>
 
-        {/* 돌아가기 버튼 */}
-        <button
-          className="scroll-anim absolute bottom-8 right-6 md:right-16 flex items-center gap-1.5 text-xs px-4 py-2 rounded-full transition-all duration-200"
-          style={{
-            background: "rgba(0,0,0,0.35)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.20)",
-            color: "rgba(255,255,255,0.80)",
-            transitionDelay: "0.45s",
-          }}
-          onClick={() => window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { id: "projects" } }))}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.55)"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.35)"; }}
-        >
-          <ArrowLeft size={13} />
-          목록으로
-        </button>
+        {/* 돌아가기 버튼 (고정 영역) */}
+        <div className="flex justify-end shrink-0">
+          <button
+            className="scroll-anim flex items-center gap-1.5 text-xs px-4.5 py-2.5 rounded-xl transition-all duration-200 bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
+            style={{
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              transitionDelay: "0.45s",
+            }}
+            onClick={() => window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { id: "projects" } }))}
+          >
+            <ArrowLeft size={13} />
+            목록으로
+          </button>
+        </div>
 
       </div>
     </section>
   );
 }
 
-function MetaCard({ data, glass, badge, delay }: { data: ProjectData; glass: React.CSSProperties; badge: React.CSSProperties; delay: string }) {
+function MetaCard({ data, delay }: { data: ProjectData; delay: string }) {
   return (
-    <div className="scroll-anim rounded-2xl p-5 flex flex-col gap-3.5" style={{ ...glass, transitionDelay: delay }}>
-      <div className="grid grid-cols-2 gap-3">
+    <div className="scroll-anim glass-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4 shrink-0" style={{ transitionDelay: delay }}>
+      <div className="grid grid-cols-2 gap-4">
         <div>
-          <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: "rgba(30,60,140,0.55)" }}>Period</p>
-          <p className="text-sm font-semibold" style={{ color: "rgba(15,40,120,0.90)" }}>{data.period}</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-1.5 text-blue-400">Period</p>
+          <p className="text-base font-semibold text-white">{data.period}</p>
         </div>
         <div>
-          <p className="text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: "rgba(30,60,140,0.55)" }}>Role</p>
-          <p className="text-sm font-semibold" style={{ color: "rgba(15,40,120,0.90)" }}>{data.role}</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-1.5 text-blue-400">Role</p>
+          <p className="text-base font-semibold text-white">{data.role}</p>
         </div>
       </div>
       <div>
-        <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "rgba(30,60,140,0.55)" }}>Tech Stack</p>
+        <p className="text-xs font-bold tracking-widest uppercase mb-2 text-blue-400">Tech Stack</p>
         <div className="flex flex-wrap gap-1.5">
-          {data.stack.map((s) => <span key={s} style={badge}>{s}</span>)}
+          {data.stack.map((s) => (
+            <span key={s} className="px-2.5 py-1 text-xs font-semibold rounded bg-white/5 border border-white/5 text-slate-300">
+              {s}
+            </span>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-function FeaturesCard({ data, glass, delay }: { data: ProjectData; glass: React.CSSProperties; delay: string }) {
+function FeaturesCard({ data, delay }: { data: ProjectData; delay: string }) {
   return (
-    <div className="scroll-anim rounded-2xl p-5 flex flex-col gap-3 flex-1 min-h-0 overflow-hidden" style={{ ...glass, transitionDelay: delay }}>
+    <div className="scroll-anim glass-dark border border-white/10 rounded-2xl p-6 flex flex-col gap-4.5 flex-1 min-h-0 overflow-hidden" style={{ transitionDelay: delay }}>
       {/* 주요 기능 */}
-      <p className="text-xs font-bold tracking-widest uppercase shrink-0" style={{ color: "rgba(30,60,140,0.55)" }}>주요 기능</p>
-      <ul className="flex flex-col gap-2 shrink-0">
+      <div className="shrink-0">
+        <p className="text-xs font-bold tracking-widest uppercase text-blue-400">주요 기능</p>
+      </div>
+      <ul className="flex flex-col gap-2.5 shrink-0">
         {data.features.map((f, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm leading-snug" style={{ color: "rgba(15,40,120,0.85)" }}>
-            <span className="mt-1.5 shrink-0 rounded-full" style={{ width: 5, height: 5, background: "rgba(60,100,200,0.55)" }} />
-            {f}
+          <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-slate-200">
+            <span className="mt-2 shrink-0 rounded-full bg-blue-400/80 w-1.5 h-1.5" />
+            <span>{f}</span>
           </li>
         ))}
       </ul>
 
       {/* 구분선 */}
-      <hr style={{ borderColor: "rgba(100,140,220,0.25)" }} />
+      <hr className="border-white/5 shrink-0" />
 
       {/* 기술적 도전 & 해결 */}
-      <p className="text-xs font-bold tracking-widest uppercase shrink-0" style={{ color: "rgba(30,60,140,0.55)" }}>
-        기술적 도전 &amp; 해결
-      </p>
-      <ul className="flex flex-col gap-2.5 overflow-hidden">
+      <div className="shrink-0">
+        <p className="text-xs font-bold tracking-widest uppercase text-blue-400">
+          기술적 도전 &amp; 해결
+        </p>
+      </div>
+      <ul className="flex flex-col gap-4 flex-1 overflow-y-auto pr-1">
         {data.challenges.map((c, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(15,40,120,0.85)" }}>
-            <span className="mt-1.5 shrink-0 rounded-sm" style={{ width: 5, height: 5, background: "rgba(100,140,220,0.55)" }} />
-            <span className="leading-snug">
-              <span className="font-semibold">{c.title}</span>
-              <span className="text-xs" style={{ color: "rgba(20,50,130,0.65)" }}> — {c.desc}</span>
-            </span>
+          <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-slate-200">
+            <span className="mt-2 shrink-0 rounded-sm bg-purple-400/80 w-1.5 h-1.5" />
+            <div>
+              <p className="font-bold text-white text-sm md:text-base leading-snug">{c.title}</p>
+              <p className="text-xs md:text-sm text-slate-400 leading-relaxed mt-1">{c.desc}</p>
+            </div>
           </li>
         ))}
       </ul>

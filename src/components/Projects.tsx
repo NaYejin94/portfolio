@@ -4,39 +4,39 @@ import { useEffect, useRef } from "react";
 import { Monitor, TrendingUp, Globe, ArrowRight } from "lucide-react";
 import RevealTitle from "@/components/RevealTitle";
 
-const glass: React.CSSProperties = {
-  background: "rgba(255, 255, 255, 0.26)",
-  backdropFilter: "blur(48px) saturate(1.3)",
-  WebkitBackdropFilter: "blur(48px) saturate(1.3)",
-  border: "1px solid rgba(255, 255, 255, 0.40)",
-  boxShadow: "0 4px 24px rgba(0, 20, 80, 0.08), inset 0 1px 0 rgba(255,255,255,0.55)",
-};
-
-const badge: React.CSSProperties = {
-  background: "rgba(255, 255, 255, 0.38)",
-  border: "1px solid rgba(160, 180, 220, 0.40)",
-  color: "rgba(15, 45, 130, 0.90)",
-  padding: "2px 10px",
-  borderRadius: "999px",
-  fontSize: "0.7rem",
-  fontWeight: 600,
-};
-
 const projects = [
   {
-    id: "01", title: "AI-VIS", category: "WEB SERVICE",
+    id: "01",
+    title: "AI-VIS",
+    category: "WEB SERVICE",
     desc: "지자체 전광판의 영상 송출과 스케줄링을 자동화하는 AI 기반 통합 제어 플랫폼입니다.",
-    stack: "Next.js / Zustand / SSE", period: "2025.10 – 2025.12", icon: Monitor, detailId: "project-aivis",
+    stack: ["Next.js", "Zustand", "SSE", "Kubb"],
+    period: "2025.10 – 2025.12",
+    icon: Monitor,
+    detailId: "project-aivis",
+    highlights: ["fetch + Custom SSE 클라이언트 설계", "JWT Refresh Queue 인터셉터 구현", "dnd-kit 기반 낙관적 업데이트"],
   },
   {
-    id: "02", title: "POOLIM", category: "SaaS",
+    id: "02",
+    title: "POOLIM",
+    category: "SaaS / AI",
     desc: "선거 데이터를 정밀 분석하여 승리 전략과 캠페인 예산을 제안하는 AI 컨설팅 솔루션입니다.",
-    stack: "Next.js / Recharts / 네이버 지도", period: "2025.12 – 진행 중", icon: TrendingUp, detailId: "project-poolim",
+    stack: ["Next.js", "Recharts", "Naver Map API"],
+    period: "2025.12 – 진행 중",
+    icon: TrendingUp,
+    detailId: "project-poolim",
+    highlights: ["Middleware 멀티테넌트 라우팅", "Vite → Next.js SEO 고도화"],
   },
   {
-    id: "03", title: "WIZplus 홈페이지", category: "HOMEPAGE",
+    id: "03",
+    title: "WIZplus 홈페이지",
+    category: "HOMEPAGE",
     desc: "기업 아이덴티티를 스크롤 애니메이션과 현대적인 레이아웃으로 표현한 공식 홈페이지입니다.",
-    stack: "Next.js / Tailwind CSS / Minio", period: "2025.11 – 2025.12", icon: Globe, detailId: "project-wizplus",
+    stack: ["Next.js", "Tailwind CSS", "Minio"],
+    period: "2025.11 – 2025.12",
+    icon: Globe,
+    detailId: "project-wizplus",
+    highlights: ["IntersectionObserver 애니메이션", "1인 디자인 및 설계 배포"],
   },
 ];
 
@@ -47,7 +47,13 @@ export default function Projects() {
     const items = ref.current?.querySelectorAll(".scroll-anim");
     if (!items) return;
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } }),
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        }),
       { root: document.getElementById("snap-main"), threshold: 0.05 }
     );
     items.forEach((el) => observer.observe(el));
@@ -57,100 +63,94 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="snap-start h-screen relative overflow-hidden flex flex-col justify-center px-6 md:px-16 py-16 md:py-20"
+      className="snap-start h-screen relative overflow-hidden flex flex-col justify-center px-6 md:px-16 py-12 md:py-16"
     >
+      {/* 백그라운드 레이어 및 가독성 100% 확보를 위한 딥 블랙 오버레이 */}
       <div
         className="absolute inset-0"
         style={{ backgroundImage: "url('/bg-section.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
+      <div className="absolute inset-0 bg-slate-950/92 backdrop-blur-[6px] z-[1]" />
 
-      <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full flex flex-col gap-8">
-
-        {/* 타이틀 — 배경 위에 바로 */}
+      <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full flex flex-col gap-6 md:gap-8">
+        
+        {/* 타이틀 */}
         <div>
-          <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-white/70 mb-1">
+          <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-blue-400 mb-1">
             03 — Projects
           </p>
           <RevealTitle text="Projects" className="text-4xl font-bold text-white section-title" baseDelay={0.08} />
         </div>
 
-        {/* 프로젝트 카드 그리드 */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+        {/* 프로젝트 세로 스택 와이드 레이아웃 (럭셔리 에디토리얼 테마) */}
+        <div className="flex flex-col gap-4 md:gap-5 w-full">
           {projects.map((project, i) => {
-            const Icon = project.icon;
             const goto = () =>
               window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { id: project.detailId } }));
 
-            const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
-              const el = e.currentTarget;
-              const rect = el.getBoundingClientRect();
-              const px = e.clientX - rect.left;
-              const py = e.clientY - rect.top;
-              const x = px / rect.width - 0.5;
-              const y = py / rect.height - 0.5;
-              el.style.transition = "transform 0.08s ease, background 0.2s ease";
-              el.style.transform = `perspective(700px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) scale(1.02)`;
-
-              const spot = el.querySelector<HTMLDivElement>(".spotlight");
-              if (spot) {
-                spot.style.background = `radial-gradient(circle at ${(px / rect.width) * 100}% ${(py / rect.height) * 100}%, rgba(255,255,255,0.55), transparent 55%)`;
-                spot.style.opacity = "1";
+            const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                goto();
               }
-            };
-            const onEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.36)";
-            };
-            const onLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-              const el = e.currentTarget;
-              el.style.background = "rgba(255,255,255,0.26)";
-              el.style.transition = "transform 0.5s ease, background 0.2s ease";
-              el.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)";
-              const spot = el.querySelector<HTMLDivElement>(".spotlight");
-              if (spot) spot.style.opacity = "0";
             };
 
             return (
               <div
                 key={project.id}
-                className="scroll-anim cursor-hover relative overflow-hidden rounded-2xl p-4 md:p-6 flex flex-col gap-2 md:gap-3 cursor-pointer group"
-                style={{ ...glass, transitionDelay: `${0.15 + i * 0.1}s` }}
+                role="button"
+                tabIndex={0}
+                className="scroll-anim glass-dark w-full rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/10 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-blue-500/50 hover:border-blue-500/30 transition-all hover:bg-slate-900/40"
+                style={{ transitionDelay: `${0.15 + i * 0.1}s` }}
                 onClick={goto}
-                onMouseMove={onMove}
-                onMouseEnter={onEnter}
-                onMouseLeave={onLeave}
+                onKeyDown={onKeyDown}
               >
-                <div
-                  className="spotlight absolute inset-0 pointer-events-none"
-                  style={{ opacity: 0, transition: "opacity 0.25s ease", mixBlendMode: "overlay" }}
-                />
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <Icon size={20} color="rgba(15,45,130,0.80)" />
-                    <span
-                      className="text-xs font-bold tracking-wider px-2 py-0.5 rounded"
-                      style={{ background: "rgba(60,100,220,0.12)", color: "rgba(30,70,180,0.75)" }}
-                    >
+                {/* 1. 순번 및 기본 요약 메타 정보 */}
+                <div className="flex items-start gap-4 md:gap-6 min-w-[240px]">
+                  <span className="text-3xl md:text-4xl font-mono font-bold text-blue-500/40 mt-1 shrink-0">
+                    {project.id}
+                  </span>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="px-2 py-0.5 text-[10px] font-bold tracking-widest text-slate-400 bg-white/5 border border-white/5 w-fit rounded">
                       {project.category}
                     </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className="text-xs text-slate-400 font-mono">
+                      {project.period}
+                    </span>
                   </div>
-                  <span className="text-xs font-mono" style={{ color: "rgba(15,45,130,0.40)" }}>{project.id}</span>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold" style={{ color: "rgba(10,35,110,0.95)" }}>
-                    {project.title}
-                  </h3>
-                  <p className="text-xs mt-1.5 leading-relaxed" style={{ color: "rgba(20,55,140,0.68)" }}>
+
+                {/* 2. 상세 설명 및 핵심 강점 (텍스트 전면 가시화 및 크기 업그레이드) */}
+                <div className="flex-1 max-w-xl flex flex-col gap-2.5">
+                  <p className="text-sm md:text-base text-slate-200 leading-relaxed font-medium">
                     {project.desc}
                   </p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs md:text-sm text-slate-400">
+                    {project.highlights.map((feat, idx) => (
+                      <div key={idx} className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div
-                  className="flex items-center justify-between mt-auto pt-3"
-                  style={{ borderTop: "1px solid rgba(100,140,220,0.25)" }}
-                >
-                  <span style={badge}>{project.stack}</span>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs" style={{ color: "rgba(15,45,130,0.50)" }}>{project.period}</span>
-                    <ArrowRight size={13} color="rgba(15,45,130,0.40)" className="group-hover:translate-x-0.5 transition-transform" />
+
+                {/* 3. 우측: 기술 스택 뱃지 배열 및 상세 보기 탐색 영역 */}
+                <div className="flex flex-row md:flex-col items-start md:items-end justify-between md:justify-center gap-4 min-w-[200px] border-t border-white/5 pt-4 md:border-t-0 md:pt-0 shrink-0">
+                  <div className="flex flex-wrap gap-1.5 md:justify-end">
+                    {project.stack.map((tech) => (
+                      <span key={tech} className="px-2.5 py-0.5 text-[10px] md:text-xs font-semibold rounded bg-white/5 border border-white/5 text-slate-300">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex items-center gap-1.5 text-xs md:text-sm text-blue-400 font-bold group-hover:translate-x-1.5 transition-transform mt-1">
+                    <span>Explore</span>
+                    <ArrowRight size={14} />
                   </div>
                 </div>
               </div>
