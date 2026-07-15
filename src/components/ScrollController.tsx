@@ -9,7 +9,6 @@ const SECTIONS = [
   "project-aivis",
   "project-poolim",
   "project-wizplus",
-  "project-coloring",
   "contact",
 ];
 const DURATION = 950; // ms

@@ -106,7 +106,7 @@ export default function Contact() {
             nayejin259@gmail.com
           </a>
           <a
-            href="https://github.com/nayejin259"
+            href="https://github.com/NaYejin94"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-medium text-white transition-all duration-200"
@@ -124,7 +124,7 @@ export default function Contact() {
             }}
           >
             <GithubIcon size={15} />
-            github.com/nayejin259
+            github.com/NaYejin94
           </a>
         </div>
       </div>

@@ -9,7 +9,6 @@ const ALL_SECTIONS = [
   "project-aivis",
   "project-poolim",
   "project-wizplus",
-  "project-coloring",
   "contact",
 ];
 
@@ -46,7 +45,7 @@ export default function Navbar() {
     if (activeSectionId === id) return true;
     if (
       id === "projects" &&
-      ["project-aivis", "project-poolim", "project-wizplus", "project-coloring"].includes(activeSectionId)
+      ["project-aivis", "project-poolim", "project-wizplus"].includes(activeSectionId)
     )
       return true;
     return false;

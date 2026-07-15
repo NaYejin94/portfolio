@@ -9,7 +9,6 @@ const sections = [
   { id: "project-aivis", label: "AI-VIS" },
   { id: "project-poolim", label: "POOLIM" },
   { id: "project-wizplus", label: "WIZplus" },
-  { id: "project-coloring", label: "컬러링 앱" },
   { id: "contact", label: "Contact" },
 ];
 

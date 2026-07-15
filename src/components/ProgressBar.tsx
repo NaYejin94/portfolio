@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const TOTAL_SECTIONS = 8;
+const TOTAL_SECTIONS = 7;
 
 export default function ProgressBar() {
   const [progress, setProgress] = useState(0);

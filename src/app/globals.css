@@ -73,6 +73,45 @@ body {
   transform: translateY(0);
 }
 
+/* 타이틀 단어 단위 stagger reveal — 부모(.scroll-anim) 자체 트랜지션은 끄고 자식 span만 사용 */
+.scroll-anim.title-reveal {
+  opacity: 1;
+  transform: none;
+}
+.reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(6px);
+  transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
+}
+.scroll-anim.visible .reveal-word {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* 스크린샷 clip-path 와이프 reveal — 부모 트랜지션 끄고 내부 이미지 프레임만 와이프 */
+.scroll-anim.media-reveal {
+  opacity: 1;
+  transform: none;
+}
+.img-wipe {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.scroll-anim.visible .img-wipe {
+  clip-path: inset(0 0 0% 0);
+}
+
+/* 커스텀 커서 */
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
 /* ── PDF / 인쇄 ── */
 @media print {
   /* 배경 이미지·색상 강제 출력 */

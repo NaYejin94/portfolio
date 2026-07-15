@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mail, ChevronDown } from "lucide-react";
 
 function GithubIcon({ size = 16, className }: { size?: number; className?: string }) {
@@ -75,9 +75,36 @@ function TypedText() {
 }
 
 export default function Hero() {
+  const bgRef = useRef<HTMLDivElement>(null);
+
   const scrollToAbout = () => {
     window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { id: "about" } }));
   };
+
+  useEffect(() => {
+    const el = bgRef.current;
+    if (!el) return;
+
+    // 입장 스케일 애니메이션이 끝난 뒤부터 마우스 패럴럭스로 전환
+    const onAnimEnd = () => el.classList.remove("anim-bg-scale");
+    el.addEventListener("animationend", onAnimEnd, { once: true });
+
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      return () => el.removeEventListener("animationend", onAnimEnd);
+    }
+
+    const onMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      el.style.transform = `translate3d(${x * -14}px, ${y * -10}px, 0) scale(1.06)`;
+    };
+    window.addEventListener("mousemove", onMove);
+
+    return () => {
+      el.removeEventListener("animationend", onAnimEnd);
+      window.removeEventListener("mousemove", onMove);
+    };
+  }, []);
 
   return (
     <section
@@ -85,6 +112,7 @@ export default function Hero() {
       className="snap-start h-screen relative overflow-hidden flex flex-col items-center justify-center text-center px-6"
     >
       <div
+        ref={bgRef}
         className="absolute inset-0 anim-bg-scale"
         style={{
           backgroundImage: "url('/bg-hero.jpg')",
@@ -116,13 +144,13 @@ export default function Hero() {
             nayejin259@gmail.com
           </a>
           <a
-            href="https://github.com/nayejin259"
+            href="https://github.com/NaYejin94"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-white/75 hover:text-white transition-colors text-sm"
           >
             <GithubIcon size={15} />
-            github.com/nayejin259
+            github.com/NaYejin94
           </a>
         </div>
       </div>

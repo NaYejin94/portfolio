@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Monitor, TrendingUp, Globe, Smartphone, ArrowRight } from "lucide-react";
+import { Monitor, TrendingUp, Globe, ArrowRight } from "lucide-react";
+import RevealTitle from "@/components/RevealTitle";
 
 const glass: React.CSSProperties = {
   background: "rgba(255, 255, 255, 0.26)",
@@ -30,17 +31,12 @@ const projects = [
   {
     id: "02", title: "POOLIM", category: "SaaS",
     desc: "선거 데이터를 정밀 분석하여 승리 전략과 캠페인 예산을 제안하는 AI 컨설팅 솔루션입니다.",
-    stack: "Next.js / Recharts / Leaflet", period: "2025.12 – 진행 중", icon: TrendingUp, detailId: "project-poolim",
+    stack: "Next.js / Recharts / 네이버 지도", period: "2025.12 – 진행 중", icon: TrendingUp, detailId: "project-poolim",
   },
   {
     id: "03", title: "WIZplus 홈페이지", category: "HOMEPAGE",
     desc: "기업 아이덴티티를 스크롤 애니메이션과 현대적인 레이아웃으로 표현한 공식 홈페이지입니다.",
     stack: "Next.js / Tailwind CSS / Minio", period: "2025.11 – 2025.12", icon: Globe, detailId: "project-wizplus",
-  },
-  {
-    id: "04", title: "힐링다이아", category: "MOBILE APP",
-    desc: "AI 이미지 변환과 픽셀 드로잉으로 시각적 힐링을 선사하는 보석 컬러링 앱입니다.",
-    stack: "React Native / Expo / AdMob", period: "2026.01 – 진행 중", icon: Smartphone, detailId: "project-coloring",
   },
 ];
 
@@ -75,16 +71,11 @@ export default function Projects() {
           <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-white/70 mb-1">
             03 — Projects
           </p>
-          <h2
-            className="scroll-anim text-4xl font-bold text-white section-title"
-            style={{ transitionDelay: "0.08s" }}
-          >
-            Projects
-          </h2>
+          <RevealTitle text="Projects" className="text-4xl font-bold text-white section-title" baseDelay={0.08} />
         </div>
 
         {/* 프로젝트 카드 그리드 */}
-        <div className="grid grid-cols-2 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
           {projects.map((project, i) => {
             const Icon = project.icon;
             const goto = () =>
@@ -93,10 +84,18 @@ export default function Projects() {
             const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
               const el = e.currentTarget;
               const rect = el.getBoundingClientRect();
-              const x = (e.clientX - rect.left) / rect.width - 0.5;
-              const y = (e.clientY - rect.top) / rect.height - 0.5;
+              const px = e.clientX - rect.left;
+              const py = e.clientY - rect.top;
+              const x = px / rect.width - 0.5;
+              const y = py / rect.height - 0.5;
               el.style.transition = "transform 0.08s ease, background 0.2s ease";
               el.style.transform = `perspective(700px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) scale(1.02)`;
+
+              const spot = el.querySelector<HTMLDivElement>(".spotlight");
+              if (spot) {
+                spot.style.background = `radial-gradient(circle at ${(px / rect.width) * 100}% ${(py / rect.height) * 100}%, rgba(255,255,255,0.55), transparent 55%)`;
+                spot.style.opacity = "1";
+              }
             };
             const onEnter = (e: React.MouseEvent<HTMLDivElement>) => {
               e.currentTarget.style.background = "rgba(255,255,255,0.36)";
@@ -106,18 +105,24 @@ export default function Projects() {
               el.style.background = "rgba(255,255,255,0.26)";
               el.style.transition = "transform 0.5s ease, background 0.2s ease";
               el.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)";
+              const spot = el.querySelector<HTMLDivElement>(".spotlight");
+              if (spot) spot.style.opacity = "0";
             };
 
             return (
               <div
                 key={project.id}
-                className="scroll-anim rounded-2xl p-4 md:p-6 flex flex-col gap-2 md:gap-3 cursor-pointer group"
+                className="scroll-anim cursor-hover relative overflow-hidden rounded-2xl p-4 md:p-6 flex flex-col gap-2 md:gap-3 cursor-pointer group"
                 style={{ ...glass, transitionDelay: `${0.15 + i * 0.1}s` }}
                 onClick={goto}
                 onMouseMove={onMove}
                 onMouseEnter={onEnter}
                 onMouseLeave={onLeave}
               >
+                <div
+                  className="spotlight absolute inset-0 pointer-events-none"
+                  style={{ opacity: 0, transition: "opacity 0.25s ease", mixBlendMode: "overlay" }}
+                />
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2.5">
                     <Icon size={20} color="rgba(15,45,130,0.80)" />

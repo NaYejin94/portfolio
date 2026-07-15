@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Monitor, TrendingUp, Globe, Smartphone, ArrowLeft } from "lucide-react";
+import { Monitor, TrendingUp, Globe, ArrowLeft } from "lucide-react";
+import RevealTitle from "@/components/RevealTitle";
 
 const glass: React.CSSProperties = {
   background: "rgba(255, 255, 255, 0.26)",
@@ -32,19 +33,17 @@ export type ProjectData = {
   stack: string[];
   features: string[];
   challenges: { title: string; desc: string }[];
-  icon: "monitor" | "trending" | "globe" | "smartphone";
+  icon: "monitor" | "trending" | "globe";
   images: string[];
-  isMobile?: boolean;
 };
 
 const iconMap = {
   monitor: Monitor,
   trending: TrendingUp,
   globe: Globe,
-  smartphone: Smartphone,
 };
 
-function Screenshots({ images, isMobile }: { images: string[]; isMobile?: boolean }) {
+function Screenshots({ images }: { images: string[] }) {
   const frameStyle: React.CSSProperties = {
     borderRadius: "12px",
     overflow: "hidden",
@@ -53,33 +52,9 @@ function Screenshots({ images, isMobile }: { images: string[]; isMobile?: boolea
     position: "relative",
   };
 
-  if (isMobile) {
-    return (
-      <div className="flex items-center justify-center gap-4" style={{ height: "100%" }}>
-        {images.map((src, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={i}
-            src={src}
-            alt="screenshot"
-            style={{
-              height: "100%",
-              width: "auto",
-              maxWidth: "100%",
-              borderRadius: "12px",
-              boxShadow: "0 8px 32px rgba(0,20,80,0.18)",
-              border: "1px solid rgba(255,255,255,0.5)",
-              objectFit: "contain",
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
-
   if (images.length === 1) {
     return (
-      <div style={{ ...frameStyle, width: "100%", height: "100%", minHeight: 300 }}>
+      <div className="img-wipe" style={{ ...frameStyle, width: "100%", height: "100%", minHeight: 300 }}>
         <Image src={images[0]} alt="screenshot" fill className="object-cover object-top" sizes="60vw" />
       </div>
     );
@@ -89,7 +64,7 @@ function Screenshots({ images, isMobile }: { images: string[]; isMobile?: boolea
   return (
     <div className="flex flex-col gap-2 h-full">
       {images.map((src, i) => (
-        <div key={i} style={{ ...frameStyle, flex: 1, minHeight: 0, position: "relative" }}>
+        <div key={i} className="img-wipe" style={{ ...frameStyle, flex: 1, minHeight: 0, position: "relative" }}>
           <Image src={src} alt={`screenshot ${i + 1}`} fill className="object-cover object-top" sizes="60vw" />
         </div>
       ))}
@@ -134,9 +109,7 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
             <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-white/70 mb-1">
               {String(index + 4).padStart(2, "0")} — Project
             </p>
-            <h2 className="scroll-anim text-4xl font-bold text-white section-title" style={{ transitionDelay: "0.06s" }}>
-              {data.title}
-            </h2>
+            <RevealTitle text={data.title} className="text-4xl font-bold text-white section-title" baseDelay={0.06} />
           </div>
           <div
             className="scroll-anim flex items-center gap-2.5 px-4 py-2 rounded-full"
@@ -153,32 +126,14 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
           className="grid grid-cols-5 gap-4"
           style={{ height: "calc(100vh - 220px)", minHeight: 0 }}
         >
-          {data.isMobile ? (
-            <>
-              {/* 모바일 앱: 스크린샷 좁게 / 정보 넓게 — 작은 화면에서는 스크린샷 숨김 */}
-              <div
-                className="scroll-anim hidden md:block col-span-2"
-                style={{ transitionDelay: "0.16s", height: "100%" }}
-              >
-                <Screenshots images={data.images} isMobile />
-              </div>
-              <div className="col-span-5 md:col-span-3 flex flex-col gap-3 min-h-0">
-                <MetaCard data={data} glass={glass} badge={badge} delay="0.22s" />
-                <FeaturesCard data={data} glass={glass} delay="0.30s" />
-              </div>
-            </>
-          ) : (
-            <>
-              {/* 웹/기본: 스크린샷 왼쪽 — 작은 화면에서는 스크린샷 숨김 */}
-              <div className="scroll-anim hidden md:block col-span-3 min-h-0" style={{ transitionDelay: "0.16s" }}>
-                <Screenshots images={data.images} />
-              </div>
-              <div className="col-span-5 md:col-span-2 flex flex-col gap-3 min-h-0">
-                <MetaCard data={data} glass={glass} badge={badge} delay="0.22s" />
-                <FeaturesCard data={data} glass={glass} delay="0.30s" />
-              </div>
-            </>
-          )}
+          {/* 스크린샷 왼쪽 — 작은 화면에서는 스크린샷 숨김 */}
+          <div className="scroll-anim media-reveal hidden md:block col-span-3 min-h-0" style={{ transitionDelay: "0.16s" }}>
+            <Screenshots images={data.images} />
+          </div>
+          <div className="col-span-5 md:col-span-2 flex flex-col gap-3 min-h-0">
+            <MetaCard data={data} glass={glass} badge={badge} delay="0.22s" />
+            <FeaturesCard data={data} glass={glass} delay="0.30s" />
+          </div>
         </div>
 
         {/* 돌아가기 버튼 */}
