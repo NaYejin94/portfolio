@@ -45,12 +45,12 @@ export default function Contact() {
           backgroundPosition: "center",
         }}
       />
-      <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-[2]" />
+      <div className="absolute inset-0 bg-neutral-950/85 backdrop-blur-[2px] z-[2]" />
 
       <div ref={ref} className="relative z-10 flex flex-col items-center gap-6">
         {/* 코드 아이콘 */}
         <div
-          className="scroll-anim w-16 h-16 rounded-2xl flex items-center justify-center"
+          className="scroll-anim w-16 h-16 rounded-lg flex items-center justify-center"
           style={{
             background: "rgba(255,255,255,0.15)",
             border: "1px solid rgba(255,255,255,0.30)",
@@ -66,7 +66,7 @@ export default function Contact() {
           className="scroll-anim flex flex-col gap-2"
           style={{ transitionDelay: "0.10s" }}
         >
-          <p className="text-xs font-bold tracking-[0.45em] uppercase text-white/60">
+          <p className="mono text-xs font-bold tracking-[0.45em] uppercase text-white/60">
             06 — Contact
           </p>
           <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
