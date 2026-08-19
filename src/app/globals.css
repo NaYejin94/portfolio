@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
 * {
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -13,12 +17,10 @@ body {
   color: #ffffff;
 }
 
-/* 콘텐츠 박스 — 어두운 유리 */
+/* 콘텐츠 패널 — 얇은 보더의 단색 패널 (프로스티드 글라스 제거) */
 .glass-dark {
-  background: rgba(6, 12, 38, 0.72);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: #101114;
+  border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 /* 콘텐츠 박스 — 밝은 서리 낀 유리 (Frosted Glassmorphism) */
@@ -44,18 +46,38 @@ body {
 
 /* 내부 카드 — 얇은 테두리만 */
 .card-inner {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 /* Hero 텍스트 그림자 */
 .text-shadow-hero {
-  text-shadow: 0 2px 40px rgba(0, 0, 60, 0.8), 0 1px 10px rgba(0, 0, 60, 0.5);
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.8), 0 1px 10px rgba(0, 0, 0, 0.5);
 }
 
 .section-title {
-  border-left: 4px solid #60a5fa;
+  border-left: 3px solid #e8a33d;
   padding-left: 14px;
+}
+
+.mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* 실시간 상태 표시 점 */
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e8a33d;
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.18);
+  display: inline-block;
+  flex-shrink: 0;
+  animation: pulseDot 2.4s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
 }
 
 /* ── 애니메이션 ── */
