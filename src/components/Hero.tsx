@@ -13,8 +13,8 @@ function GithubIcon({ size = 16, className }: { size?: number; className?: strin
 
 const PHRASES = [
   "React / Next.js / TypeScript",
+  "실시간 데이터·상태 동기화를 고민하는 개발자"
   "기획부터 배포까지",
-  "사용자 경험을 고민하는 개발자",
 ];
 
 function TypedText() {
