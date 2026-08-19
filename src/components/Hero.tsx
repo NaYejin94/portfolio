@@ -122,10 +122,11 @@ export default function Hero() {
           backgroundPosition: "center",
         }}
       />
-      <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px] z-[2]" />
+      <div className="absolute inset-0 bg-neutral-950/85 backdrop-blur-[2px] z-[2]" />
 
       <div className="relative z-10 flex flex-col items-center gap-5 text-shadow-hero">
-        <p className="anim-up d1 text-white/70 text-xs font-semibold tracking-[0.45em] uppercase">
+        <p className="anim-up d1 mono text-white/70 text-xs font-semibold tracking-[0.45em] uppercase flex items-center gap-2.5">
+          <span className="live-dot" />
           Frontend Developer Portfolio
         </p>
 
@@ -138,7 +139,7 @@ export default function Hero() {
           <TypedText />
         </div>
 
-        <div className="anim-up d4 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 mt-1">
+        <div className="anim-up d4 mono flex flex-col sm:flex-row items-center gap-4 sm:gap-8 mt-1">
           <a
             href="mailto:nayejin259@gmail.com"
             className="flex items-center gap-2 text-white/75 hover:text-white transition-colors text-sm"
