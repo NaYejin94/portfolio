@@ -83,14 +83,14 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
         className="absolute inset-0"
         style={{ backgroundImage: "url('/bg-section.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
-      <div className="absolute inset-0 bg-slate-950/92 backdrop-blur-[6px] z-[1]" />
+      <div className="absolute inset-0 bg-neutral-950/92 backdrop-blur-[6px] z-[1]" />
 
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full h-full flex flex-col justify-between gap-6 min-h-0">
 
         {/* 헤더 (고정 영역) */}
         <div className="flex items-center justify-between shrink-0">
           <div>
-            <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-blue-400 mb-1">
+            <p className="scroll-anim mono text-xs font-bold tracking-[0.45em] uppercase text-amber-400 mb-1">
               {String(index + 4).padStart(2, "0")} — Project Detail
             </p>
             <RevealTitle text={data.title} className="text-4xl font-bold text-white section-title" baseDelay={0.06} />
@@ -99,11 +99,11 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
             className="scroll-anim flex items-center gap-2.5 px-4.5 py-2.5 rounded-full glass-dark border border-white/10"
             style={{ transitionDelay: "0.10s" }}
           >
-            <span className="p-1 rounded bg-blue-500/10 text-blue-400">
+            <span className="p-1 rounded bg-amber-500/10 text-amber-400">
               <Icon size={14} />
             </span>
-            <span className="text-sm font-medium text-slate-200">{data.subtitle}</span>
-            <span className="text-xs ml-1 text-slate-400">| {data.period}</span>
+            <span className="text-sm font-medium text-neutral-200">{data.subtitle}</span>
+            <span className="text-xs ml-1 text-neutral-400">| {data.period}</span>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
         {/* 돌아가기 버튼 (고정 영역) */}
         <div className="flex justify-end shrink-0">
           <button
-            className="scroll-anim flex items-center gap-1.5 text-xs px-4.5 py-2.5 rounded-xl transition-all duration-200 bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
+            className="scroll-anim flex items-center gap-1.5 text-xs px-4.5 py-2.5 rounded-xl transition-all duration-200 bg-white/5 border border-white/10 text-neutral-300 hover:bg-white/10 hover:text-white"
             style={{
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
@@ -142,22 +142,22 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
 
 function MetaCard({ data, delay }: { data: ProjectData; delay: string }) {
   return (
-    <div className="scroll-anim glass-dark border border-white/10 rounded-2xl p-5 flex flex-col gap-4 shrink-0" style={{ transitionDelay: delay }}>
+    <div className="scroll-anim glass-dark border border-white/10 rounded-lg p-5 flex flex-col gap-4 shrink-0" style={{ transitionDelay: delay }}>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <p className="text-xs font-bold tracking-widest uppercase mb-1.5 text-blue-400">Period</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-1.5 text-amber-400">Period</p>
           <p className="text-base font-semibold text-white">{data.period}</p>
         </div>
         <div>
-          <p className="text-xs font-bold tracking-widest uppercase mb-1.5 text-blue-400">Role</p>
+          <p className="text-xs font-bold tracking-widest uppercase mb-1.5 text-amber-400">Role</p>
           <p className="text-base font-semibold text-white">{data.role}</p>
         </div>
       </div>
       <div>
-        <p className="text-xs font-bold tracking-widest uppercase mb-2 text-blue-400">Tech Stack</p>
+        <p className="text-xs font-bold tracking-widest uppercase mb-2 text-amber-400">Tech Stack</p>
         <div className="flex flex-wrap gap-1.5">
           {data.stack.map((s) => (
-            <span key={s} className="px-2.5 py-1 text-xs font-semibold rounded bg-white/5 border border-white/5 text-slate-300">
+            <span key={s} className="px-2.5 py-1 text-xs font-semibold rounded bg-white/5 border border-white/5 text-neutral-300">
               {s}
             </span>
           ))}
@@ -169,15 +169,15 @@ function MetaCard({ data, delay }: { data: ProjectData; delay: string }) {
 
 function FeaturesCard({ data, delay }: { data: ProjectData; delay: string }) {
   return (
-    <div className="scroll-anim glass-dark border border-white/10 rounded-2xl p-6 flex flex-col gap-4.5 flex-1 min-h-0 overflow-hidden" style={{ transitionDelay: delay }}>
+    <div className="scroll-anim glass-dark border border-white/10 rounded-lg p-6 flex flex-col gap-4.5 flex-1 min-h-0 overflow-hidden" style={{ transitionDelay: delay }}>
       {/* 주요 기능 */}
       <div className="shrink-0">
-        <p className="text-xs font-bold tracking-widest uppercase text-blue-400">주요 기능</p>
+        <p className="text-xs font-bold tracking-widest uppercase text-amber-400">주요 기능</p>
       </div>
       <ul className="flex flex-col gap-2.5 shrink-0">
         {data.features.map((f, i) => (
-          <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-slate-200">
-            <span className="mt-2 shrink-0 rounded-full bg-blue-400/80 w-1.5 h-1.5" />
+          <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-200">
+            <span className="mt-2 shrink-0 rounded-full bg-amber-400/80 w-1.5 h-1.5" />
             <span>{f}</span>
           </li>
         ))}
@@ -188,17 +188,17 @@ function FeaturesCard({ data, delay }: { data: ProjectData; delay: string }) {
 
       {/* 기술적 도전 & 해결 */}
       <div className="shrink-0">
-        <p className="text-xs font-bold tracking-widest uppercase text-blue-400">
+        <p className="text-xs font-bold tracking-widest uppercase text-amber-400">
           기술적 도전 &amp; 해결
         </p>
       </div>
       <ul className="flex flex-col gap-4 flex-1 overflow-y-auto pr-1">
         {data.challenges.map((c, i) => (
-          <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-slate-200">
-            <span className="mt-2 shrink-0 rounded-sm bg-purple-400/80 w-1.5 h-1.5" />
+          <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-200">
+            <span className="mt-2 shrink-0 rounded-sm bg-amber-300/80 w-1.5 h-1.5" />
             <div>
               <p className="font-bold text-white text-sm md:text-base leading-snug">{c.title}</p>
-              <p className="text-xs md:text-sm text-slate-400 leading-relaxed mt-1">{c.desc}</p>
+              <p className="text-xs md:text-sm text-neutral-400 leading-relaxed mt-1">{c.desc}</p>
             </div>
           </li>
         ))}
