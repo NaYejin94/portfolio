@@ -70,13 +70,13 @@ export default function Projects() {
         className="absolute inset-0"
         style={{ backgroundImage: "url('/bg-section.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
-      <div className="absolute inset-0 bg-slate-950/92 backdrop-blur-[6px] z-[1]" />
+      <div className="absolute inset-0 bg-neutral-950/92 backdrop-blur-[6px] z-[1]" />
 
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full flex flex-col gap-6 md:gap-8">
         
         {/* 타이틀 */}
         <div>
-          <p className="scroll-anim text-xs font-bold tracking-[0.45em] uppercase text-blue-400 mb-1">
+          <p className="scroll-anim mono text-xs font-bold tracking-[0.45em] uppercase text-amber-400 mb-1">
             03 — Projects
           </p>
           <RevealTitle text="Projects" className="text-4xl font-bold text-white section-title" baseDelay={0.08} />
@@ -100,24 +100,24 @@ export default function Projects() {
                 key={project.id}
                 role="button"
                 tabIndex={0}
-                className="scroll-anim glass-dark w-full rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/10 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-blue-500/50 hover:border-blue-500/30 transition-all hover:bg-slate-900/40"
+                className="scroll-anim glass-dark w-full rounded-lg p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/10 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-amber-500/50 hover:border-amber-500/30 transition-all hover:bg-neutral-900/40"
                 style={{ transitionDelay: `${0.15 + i * 0.1}s` }}
                 onClick={goto}
                 onKeyDown={onKeyDown}
               >
                 {/* 1. 순번 및 기본 요약 메타 정보 */}
                 <div className="flex items-start gap-4 md:gap-6 min-w-[240px]">
-                  <span className="text-3xl md:text-4xl font-mono font-bold text-blue-500/40 mt-1 shrink-0">
+                  <span className="text-3xl md:text-4xl font-mono font-bold text-amber-500/40 mt-1 shrink-0">
                     {project.id}
                   </span>
                   <div className="flex flex-col gap-1.5">
-                    <span className="px-2 py-0.5 text-[10px] font-bold tracking-widest text-slate-400 bg-white/5 border border-white/5 w-fit rounded">
+                    <span className="px-2 py-0.5 text-[10px] font-bold tracking-widest text-neutral-400 bg-white/5 border border-white/5 w-fit rounded">
                       {project.category}
                     </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-amber-400 transition-colors">
                       {project.title}
                     </h3>
-                    <span className="text-xs text-slate-400 font-mono">
+                    <span className="text-xs text-neutral-400 font-mono">
                       {project.period}
                     </span>
                   </div>
@@ -125,13 +125,13 @@ export default function Projects() {
 
                 {/* 2. 상세 설명 및 핵심 강점 (텍스트 전면 가시화 및 크기 업그레이드) */}
                 <div className="flex-1 max-w-xl flex flex-col gap-2.5">
-                  <p className="text-sm md:text-base text-slate-200 leading-relaxed font-medium">
+                  <p className="text-sm md:text-base text-neutral-200 leading-relaxed font-medium">
                     {project.desc}
                   </p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs md:text-sm text-slate-400">
+                  <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs md:text-sm text-neutral-400">
                     {project.highlights.map((feat, idx) => (
                       <div key={idx} className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -142,13 +142,13 @@ export default function Projects() {
                 <div className="flex flex-row md:flex-col items-start md:items-end justify-between md:justify-center gap-4 min-w-[200px] border-t border-white/5 pt-4 md:border-t-0 md:pt-0 shrink-0">
                   <div className="flex flex-wrap gap-1.5 md:justify-end">
                     {project.stack.map((tech) => (
-                      <span key={tech} className="px-2.5 py-0.5 text-[10px] md:text-xs font-semibold rounded bg-white/5 border border-white/5 text-slate-300">
+                      <span key={tech} className="px-2.5 py-0.5 text-[10px] md:text-xs font-semibold rounded bg-white/5 border border-white/5 text-neutral-300">
                         {tech}
                       </span>
                     ))}
                   </div>
                   
-                  <div className="flex items-center gap-1.5 text-xs md:text-sm text-blue-400 font-bold group-hover:translate-x-1.5 transition-transform mt-1">
+                  <div className="flex items-center gap-1.5 text-xs md:text-sm text-amber-400 font-bold group-hover:translate-x-1.5 transition-transform mt-1">
                     <span>Explore</span>
                     <ArrowRight size={14} />
                   </div>
