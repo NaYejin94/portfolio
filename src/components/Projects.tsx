@@ -63,7 +63,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="snap-start h-screen relative overflow-hidden flex flex-col justify-center px-6 md:px-16 py-12 md:py-16"
+      className="snap-start min-h-screen md:h-screen relative overflow-visible md:overflow-hidden flex flex-col justify-center px-6 md:px-16 py-24 md:py-16"
     >
       {/* 백그라운드 레이어 및 가독성 100% 확보를 위한 딥 블랙 오버레이 */}
       <div
