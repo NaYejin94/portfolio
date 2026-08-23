@@ -43,6 +43,8 @@ export default function ScrollController() {
     const container = document.getElementById("snap-main");
     if (!container) return;
 
+    const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+
     const go = (idx: number) => {
       if (locked.current) return;
       const target = Math.max(0, Math.min(idx, SECTIONS.length - 1));
@@ -53,6 +55,18 @@ export default function ScrollController() {
         locked.current = false;
       });
     };
+
+    // 모바일/태블릿: 콘텐츠 높이가 화면보다 커질 수 있어 화면 1개=섹션 1개 강제 이동을 쓰지 않고,
+    // 자연 스크롤을 그대로 두고 네비게이션 클릭 시에만 해당 섹션으로 부드럽게 이동시킴
+    const onGotoMobile = (e: Event) => {
+      const { id } = (e as CustomEvent<{ id: string }>).detail;
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    if (!isDesktop()) {
+      window.addEventListener("scrollToSection", onGotoMobile);
+      return () => window.removeEventListener("scrollToSection", onGotoMobile);
+    }
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
