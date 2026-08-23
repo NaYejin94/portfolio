@@ -34,7 +34,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="snap-start h-screen relative overflow-hidden flex flex-col items-center justify-center text-center px-6"
+      className="snap-start min-h-screen md:h-screen relative overflow-visible md:overflow-hidden flex flex-col items-center justify-center text-center px-6"
     >
       {/* Hero와 동일한 배경 — 포트폴리오 수미상관 */}
       <div
@@ -48,18 +48,7 @@ export default function Contact() {
       <div className="absolute inset-0 bg-neutral-950/85 backdrop-blur-[2px] z-[2]" />
 
       <div ref={ref} className="relative z-10 flex flex-col items-center gap-6">
-        {/* 코드 아이콘 */}
-        <div
-          className="scroll-anim w-16 h-16 rounded-lg flex items-center justify-center"
-          style={{
-            background: "rgba(255,255,255,0.15)",
-            border: "1px solid rgba(255,255,255,0.30)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-          }}
-        >
-          <span className="text-white/90 text-2xl font-mono font-bold">{`</>`}</span>
-        </div>
+       
 
         {/* 타이틀 */}
         <div
@@ -135,7 +124,7 @@ export default function Contact() {
         className="scroll-anim absolute bottom-8 text-xs text-white/30"
         style={{ transitionDelay: "0.40s" }}
       >
-        © 2025 나예진. Built with Next.js & Tailwind CSS.
+        © 2025-2026 나예진.
       </p>
     </section>
   );
