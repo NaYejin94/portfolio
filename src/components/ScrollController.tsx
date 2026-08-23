@@ -79,7 +79,7 @@ export default function ScrollController() {
     // Navbar / SideNav 에서 발행하는 커스텀 이벤트
     const onGoto = (e: Event) => {
       const { id } = (e as CustomEvent<{ id: string }>).detail;
-      const idx = SECTIONS.indexOf(id);
+      const idx = SECTIONS.indexOf(id as (typeof SECTIONS)[number]);
       if (idx !== -1) go(idx);
     };
 
