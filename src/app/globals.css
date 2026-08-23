@@ -17,6 +17,19 @@ body {
   color: #ffffff;
 }
 
+/* 모바일/태블릿: 화면 1개 = 섹션 1개 강제 페이징을 풀고 자연스러운 스크롤 허용 */
+@media (max-width: 767px) {
+  html, body {
+    height: auto;
+    overflow: visible;
+  }
+  #snap-main {
+    height: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* 콘텐츠 패널 — 얇은 보더의 단색 패널 (프로스티드 글라스 제거) */
 .glass-dark {
   background: #101114;
