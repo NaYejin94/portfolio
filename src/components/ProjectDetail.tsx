@@ -76,7 +76,7 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
   return (
     <section
       id={data.sectionId}
-      className="snap-start h-screen relative overflow-hidden flex flex-col px-6 md:px-16 pt-24 pb-16 md:pt-28 md:pb-20"
+      className="snap-start min-h-screen md:h-screen relative overflow-visible md:overflow-hidden flex flex-col px-6 md:px-16 pt-24 pb-16 md:pt-28 md:pb-20"
     >
       {/* 백그라운드 레이어 및 가독성 100% 확보를 위한 딥 블랙 오버레이 */}
       <div
@@ -85,7 +85,7 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
       />
       <div className="absolute inset-0 bg-neutral-950/92 backdrop-blur-[6px] z-[1]" />
 
-      <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full h-full flex flex-col justify-between gap-6 min-h-0">
+      <div ref={ref} className="relative z-10 max-w-6xl mx-auto w-full md:h-full flex flex-col md:justify-between gap-6 md:min-h-0">
 
         {/* 헤더 (고정 영역) */}
         <div className="flex items-center justify-between shrink-0">
@@ -108,12 +108,12 @@ export default function ProjectDetail({ data, index }: { data: ProjectData; inde
         </div>
 
         {/* 본문 그리드 (남은 높이를 유연하게 채워 이미지/텍스트 축소 및 여백 보존) */}
-        <div className="grid grid-cols-5 gap-5 flex-1 min-h-0">
+        <div className="grid grid-cols-5 gap-5 md:flex-1 md:min-h-0">
           {/* 스크린샷 왼쪽 — 작은 화면에서는 스크린샷 숨김 */}
           <div className="scroll-anim media-reveal hidden md:block col-span-3 h-full min-h-0" style={{ transitionDelay: "0.16s" }}>
             <Screenshots images={data.images} />
           </div>
-          <div className="col-span-5 md:col-span-2 flex flex-col gap-4 h-full min-h-0">
+          <div className="col-span-5 md:col-span-2 flex flex-col gap-4 md:h-full md:min-h-0">
             <MetaCard data={data} delay="0.22s" />
             <FeaturesCard data={data} delay="0.30s" />
           </div>
@@ -169,7 +169,7 @@ function MetaCard({ data, delay }: { data: ProjectData; delay: string }) {
 
 function FeaturesCard({ data, delay }: { data: ProjectData; delay: string }) {
   return (
-    <div className="scroll-anim glass-dark border border-white/10 rounded-lg p-6 flex flex-col gap-4.5 flex-1 min-h-0 overflow-hidden" style={{ transitionDelay: delay }}>
+    <div className="scroll-anim glass-dark border border-white/10 rounded-lg p-6 flex flex-col gap-4.5 md:flex-1 md:min-h-0 overflow-visible md:overflow-hidden" style={{ transitionDelay: delay }}>
       {/* 주요 기능 */}
       <div className="shrink-0">
         <p className="text-xs font-bold tracking-widest uppercase text-amber-400">주요 기능</p>
@@ -192,7 +192,7 @@ function FeaturesCard({ data, delay }: { data: ProjectData; delay: string }) {
           기술적 도전 &amp; 해결
         </p>
       </div>
-      <ul className="flex flex-col gap-4 flex-1 overflow-y-auto pr-1">
+      <ul className="flex flex-col gap-4 md:flex-1 overflow-visible md:overflow-y-auto pr-1">
         {data.challenges.map((c, i) => (
           <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-neutral-200">
             <span className="mt-2 shrink-0 rounded-sm bg-amber-300/80 w-1.5 h-1.5" />
