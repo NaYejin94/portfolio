@@ -111,7 +111,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="snap-start h-screen relative overflow-hidden flex flex-col items-center justify-center text-center px-6"
+      className="snap-start min-h-screen md:h-screen relative overflow-visible md:overflow-hidden flex flex-col items-center justify-center text-center px-6"
     >
       <div
         ref={bgRef}
