@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SECTIONS, dotGroupId } from "@/lib/sections";
 
 const sections = [
   { id: "hero", label: "Home" },
@@ -21,7 +22,10 @@ export default function SideNav() {
 
     const onScroll = () => {
       const idx = Math.round(main.scrollTop / window.innerHeight);
-      setActive(Math.min(idx, sections.length - 1));
+      const clamped = Math.min(Math.max(idx, 0), SECTIONS.length - 1);
+      const group = dotGroupId(SECTIONS[clamped]);
+      const dotIdx = sections.findIndex((s) => s.id === group);
+      setActive(dotIdx === -1 ? 0 : dotIdx);
     };
 
     main.addEventListener("scroll", onScroll, { passive: true });

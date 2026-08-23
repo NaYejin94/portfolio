@@ -38,7 +38,7 @@ export default function Contact() {
     >
       {/* Hero와 동일한 배경 — 포트폴리오 수미상관 */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 bg-photo"
         style={{
           backgroundImage: "url('/bg-hero.jpg')",
           backgroundSize: "cover",
@@ -56,7 +56,7 @@ export default function Contact() {
           style={{ transitionDelay: "0.10s" }}
         >
           <p className="mono text-xs font-bold tracking-[0.45em] uppercase text-white/60">
-            06 — Contact
+            07 — Contact
           </p>
           <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
             감사합니다.
@@ -68,7 +68,7 @@ export default function Contact() {
           className="scroll-anim text-base text-white/70 max-w-sm leading-relaxed"
           style={{ transitionDelay: "0.20s" }}
         >
-          함께 더 좋은 서비스를 만들어갈 수 있다면<br />언제든지 연락 주세요.
+          함께 고민하고 만들어가고 싶은 프로젝트가 있다면<br />편하게 연락 주세요.
         </p>
 
         {/* 연락처 카드 */}

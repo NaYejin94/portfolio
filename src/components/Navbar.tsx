@@ -1,16 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const ALL_SECTIONS = [
-  "hero",
-  "about",
-  "projects",
-  "project-aivis",
-  "project-poolim",
-  "project-wizplus",
-  "contact",
-];
+import { SECTIONS, dotGroupId } from "@/lib/sections";
 
 const links = [
   { label: "Home", id: "hero" },
@@ -28,8 +19,8 @@ export default function Navbar() {
 
     const onScroll = () => {
       const idx = Math.round(main.scrollTop / window.innerHeight);
-      const clamped = Math.min(idx, ALL_SECTIONS.length - 1);
-      setActiveSectionId(ALL_SECTIONS[clamped]);
+      const clamped = Math.min(Math.max(idx, 0), SECTIONS.length - 1);
+      setActiveSectionId(SECTIONS[clamped]);
     };
 
     main.addEventListener("scroll", onScroll, { passive: true });
@@ -40,15 +31,11 @@ export default function Navbar() {
     window.dispatchEvent(new CustomEvent("scrollToSection", { detail: { id } }));
   };
 
-  // Project detail pages all highlight "Projects" in the nav
+  // Project overview/challenges 페이지는 모두 "Projects"를 활성으로 표시
   const getActiveLink = (id: string) => {
-    if (activeSectionId === id) return true;
-    if (
-      id === "projects" &&
-      ["project-aivis", "project-poolim", "project-wizplus"].includes(activeSectionId)
-    )
-      return true;
-    return false;
+    const group = dotGroupId(activeSectionId);
+    if (id === "projects") return group === "projects" || group.startsWith("project-");
+    return group === id;
   };
 
   return (

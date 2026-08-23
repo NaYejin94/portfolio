@@ -168,6 +168,73 @@ body {
   }
 }
 
+/* ── 라이트 모드 ──
+   Navbar/SideNav/BackToTop/ProgressBar 등 섹션 밖 플로팅 UI는 다크 글래스 그대로 유지하고,
+   <section> 안쪽 콘텐츠(Hero/About/Projects/ProjectDetail/Contact)만 밝은 톤으로 전환한다. */
+html[data-theme="light"] body {
+  background: #f7f5f1;
+  color: #17171a;
+}
+
+html[data-theme="light"] .bg-photo {
+  opacity: 0.05;
+}
+
+html[data-theme="light"] section .glass-dark {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="light"] section .bg-neutral-950\/92,
+html[data-theme="light"] section .bg-neutral-950\/85 {
+  background-color: rgba(247, 245, 241, 0.94);
+}
+
+html[data-theme="light"] section .text-white,
+html[data-theme="light"] section .text-white\/75,
+html[data-theme="light"] section .text-white\/70,
+html[data-theme="light"] section .text-white\/60,
+html[data-theme="light"] section .text-white\/40,
+html[data-theme="light"] section .text-white\/30 {
+  color: #17171a;
+}
+
+html[data-theme="light"] section .text-neutral-200 {
+  color: #2b2b30;
+}
+html[data-theme="light"] section .text-neutral-300 {
+  color: #45454c;
+}
+html[data-theme="light"] section .text-neutral-400 {
+  color: #63636b;
+}
+html[data-theme="light"] section .text-neutral-500 {
+  color: #7d7d85;
+}
+
+html[data-theme="light"] section .border-white\/5,
+html[data-theme="light"] section .border-white\/6,
+html[data-theme="light"] section .border-white\/10,
+html[data-theme="light"] section .border-white\/35 {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] section .bg-white\/5,
+html[data-theme="light"] section .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="light"] section .text-amber-400,
+html[data-theme="light"] section .text-amber-400\/90,
+html[data-theme="light"] section .text-amber-500\/40 {
+  color: #a3690a;
+}
+
+html[data-theme="light"] section .text-shadow-hero {
+  text-shadow: none;
+}
+
 /* ── PDF / 인쇄 ── */
 @media print {
   /* 배경 이미지·색상 강제 출력 */

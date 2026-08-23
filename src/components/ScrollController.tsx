@@ -1,16 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { SECTIONS } from "@/lib/sections";
 
-const SECTIONS = [
-  "hero",
-  "about",
-  "projects",
-  "project-aivis",
-  "project-poolim",
-  "project-wizplus",
-  "contact",
-];
 const DURATION = 950; // ms
 
 function easeInOutSine(t: number): number {

@@ -14,6 +14,11 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}`,
+          }}
+        />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link
           rel="stylesheet"

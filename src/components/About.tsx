@@ -6,26 +6,7 @@ import RevealTitle from "@/components/RevealTitle";
 const techStack = [
   { label: "FRONTEND", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
   { label: "STATE", items: ["Zustand", "React Query"] },
-  { label: "REAL-TIME", items: ["SSE", "dnd-kit"] },
   { label: "TOOLS", items: ["Figma", "Kubb", "Git", "Minio"] },
-];
-
-const notes = [
-  {
-    tag: "MIGRATION",
-    title: "App Router Migration",
-    desc: "Legacy Page Router 코드를 Next.js App Router 아키텍처로 전담 마이그레이션했습니다.",
-  },
-  {
-    tag: "STANDARDS",
-    title: "Web Standards & A11y",
-    desc: "가속 물리 기반 스크롤 컨트롤, 키보드 포커싱, 의미론적 마크업을 지키며 완결성 있는 UI를 추구합니다.",
-  },
-  {
-    tag: "STABILITY",
-    title: "인증 안정성 & 자동화",
-    desc: "Kubb 기반 OpenAPI 연동으로 타입 추론을 자동화하고, 401 Interceptor 큐 처리로 통신 안정성을 확보했습니다.",
-  },
 ];
 
 export default function About() {
@@ -54,7 +35,7 @@ export default function About() {
       className="snap-start min-h-screen md:h-screen relative overflow-visible md:overflow-hidden flex flex-col justify-center px-6 md:px-16 py-24 md:py-16"
     >
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 bg-photo"
         style={{ backgroundImage: "url('/bg-section.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
       <div className="absolute inset-0 bg-neutral-950/92 backdrop-blur-[6px] z-[1]" />
@@ -78,27 +59,8 @@ export default function About() {
                 커스텀 SSE 클라이언트로 실시간 진행률·알림 스트리밍을 구현하고, Zustand·React Query로 여러 상태가 동시에 갱신되는 UI를 관리해왔습니다. 서비스 기획 경험을 바탕으로 기획 의도를 이해하고 협업하는 것에도 강점이 있습니다.
               </p>
               <p>
-                제품 초기 기획 구체화 단계부터 참여해 UI 표준화, 프론트 아키텍처 설계, 실서비스 배포까지 단독 전담하며 프로덕트 오너십을 증명해 왔습니다.
+                제품 초기 기획 단계부터 UI 설계, 프론트엔드 아키텍처 구성, 배포까지 참여하며 서비스 개발의 전체 흐름을 경험했습니다.
               </p>
-            </div>
-
-            {/* 로그 스타일 노트 리스트 */}
-            <div className="mt-2 flex flex-col">
-              {notes.map((n, i) => (
-                <div
-                  key={n.tag}
-                  className="scroll-anim flex items-start gap-4 md:gap-6 py-4 border-t border-white/8 last:border-b"
-                  style={{ transitionDelay: `${0.3 + i * 0.08}s` }}
-                >
-                  <span className="mono text-[10px] font-bold tracking-widest text-neutral-500 pt-0.5 w-[84px] shrink-0">
-                    {n.tag}
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-bold text-white mb-1">{n.title}</h3>
-                    <p className="text-xs md:text-[13px] leading-relaxed text-neutral-400">{n.desc}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -109,7 +71,6 @@ export default function About() {
           >
             <div className="flex items-center justify-between">
               <span className="mono text-[10px] font-bold tracking-widest text-neutral-500">STACK.spec</span>
-              <span className="live-dot" />
             </div>
             <div className="flex flex-col gap-4">
               {techStack.map(({ label, items }) => (

@@ -115,7 +115,7 @@ export default function Hero() {
     >
       <div
         ref={bgRef}
-        className="absolute inset-0 anim-bg-scale"
+        className="absolute inset-0 anim-bg-scale bg-photo"
         style={{
           backgroundImage: "url('/bg-hero.jpg')",
           backgroundSize: "cover",
@@ -125,10 +125,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-neutral-950/85 backdrop-blur-[2px] z-[2]" />
 
       <div className="relative z-10 flex flex-col items-center gap-5 text-shadow-hero">
-        <p className="anim-up d1 mono text-white/70 text-xs font-semibold tracking-[0.45em] uppercase flex items-center gap-2.5">
-          <span className="live-dot" />
-          Frontend Developer Portfolio
-        </p>
+        
 
         <h1 className="anim-up d2 font-extrabold text-white text-center leading-tight">
           <span className="block text-xl md:text-3xl mb-1" style={{ opacity: 0.85 }}>안녕하세요,</span>
